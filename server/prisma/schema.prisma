@@ -43,10 +43,10 @@ model Job {
   category    String
   description String
   createdAt   DateTime      @default(now())
-  salary      Float
-  employmentType EnumEmploymentType
-  experienceLevel EnumExperienceLevel
-  remote      Boolean
+  salary      Float?
+  employmentType EnumEmploymentType?   
+  experienceLevel EnumExperienceLevel?
+  remote      Boolean?
   skills      String[]
   applications Application[]
 }
@@ -54,12 +54,20 @@ model Job {
 model Application {
   id          Int      @id @default(autoincrement())
   jobId       Int
-  job         Job      @relation(fields: [jobId], references: [id])
-  userId      Int
-  user        User     @relation(fields: [userId], references: [id])
+  userId      Int?
   name        String
   email       String
   resumeLink  String
-  coverNote   String
+  coverNote   String?
+  status      ApplicationStatus @default(PENDING)
   createdAt   DateTime @default(now())
+  job         Job      @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWED
+  ACCEPTED
+  REJECTED
 }
