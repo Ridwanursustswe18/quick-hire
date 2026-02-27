@@ -11,7 +11,21 @@ enum UserRole {
   USER
   EMPLOYER
 }
-
+enum EnumEmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  TEMPORARY
+  INTERN
+  VOLUNTEER
+  OTHER
+}
+enum EnumExperienceLevel {
+  ENTRY
+  MID
+  SENIOR
+  LEAD
+}
 model User{
     id        Int           @id @default(autoincrement())
     name      String
@@ -29,6 +43,11 @@ model Job {
   category    String
   description String
   createdAt   DateTime      @default(now())
+  salary      Float
+  employmentType EnumEmploymentType
+  experienceLevel EnumExperienceLevel
+  remote      Boolean
+  skills      String[]
   applications Application[]
 }
 
