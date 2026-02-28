@@ -9,8 +9,8 @@ const { submitApplication } = require('../controllers/application.controller');
 
 router.get('/', getAllJobs);                                               
 router.get('/:id', getJobById);                                           
-router.post('/', protect, adminOnly, validate(jobSchema), createJob);
+router.post('/',  validate(jobSchema), createJob);
 router.post('/:jobId/applications', validate(createApplicationSchema), submitApplication);
-router.delete('/:id', protect, adminOnly, deleteJob);                     
+router.delete('/:id', deleteJob);                     
 
 module.exports = router;
